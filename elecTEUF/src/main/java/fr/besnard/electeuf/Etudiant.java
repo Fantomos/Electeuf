@@ -5,6 +5,8 @@
  */
 package fr.besnard.electeuf;
 
+import java.util.Objects;
+
 /**
  *
  * @author nbesnard01
@@ -44,9 +46,32 @@ public class Etudiant {
         return this.prenom + " " + this.nom;
     }
     
-    public static void main(String[] args){
-        Etudiant e1 = new Etudiant("Bob", "Marley");
-        e1.toString();
+     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Etudiant other = (Etudiant) obj;
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        return Objects.equals(this.prenom, other.prenom);
     }
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.nom);
+        hash = 97 * hash + Objects.hashCode(this.prenom);
+        return hash;
+    }
+    
+  
     
 }
