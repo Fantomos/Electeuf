@@ -126,7 +126,8 @@ public class Database {
         while (i < nbr) {
             Etudiant alea = new Etudiant(
                     noms.get(r.nextInt(noms.size())),
-                    prenoms.get(r.nextInt(prenoms.size()))
+                    prenoms.get(r.nextInt(prenoms.size())),
+                    "GE5"
             );
             if (this.addEtudiant(alea)) {
                 i++;

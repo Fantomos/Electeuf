@@ -33,11 +33,20 @@ public class CoutInscriptionEtudiantModule {
     private Module module;
     private double cout;
 
-    public CoutInscriptionEtudiantModule(Etudiant etudiant, Module module, double cout) {
-        this.etudiant = etudiant;
-        this.module = module;
-        this.cout = cout;
+    public CoutInscriptionEtudiantModule(Etudiant mEtudiant, Module mModule, double mCoutBonus) {
+        this.etudiant = mEtudiant;
+        this.module = mModule;
+        if(mModule.getClasses().contains(mEtudiant.getClasse())){
+            this.cout = 0 + mCoutBonus;
+        }else{
+            this.cout = COUT_PROHIBITIF;
+        }
     }
+    
+    public CoutInscriptionEtudiantModule(Etudiant mEtudiant, Module mModule){
+        this(mEtudiant, mModule, 0);
+    }
+    
 
     public static CoutInscriptionEtudiantModule coutAlea(Etudiant e, Module m, Random r) {
         double cout;

@@ -5,6 +5,9 @@
  */
 package fr.besnard.electeuf;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -14,14 +17,16 @@ import java.util.Objects;
 public class Module {
     private String intitule;
     private int nbPlace;
+    private List<Classe> classes;
     
-    public Module (String mIntitule, int mNbPlace){
+    public Module (String mIntitule, int mNbPlace, List<Classe> mClasses){
         this.intitule = mIntitule;
         this.nbPlace = mNbPlace;
+        this.classes = mClasses;
     }
    
     public Module(){
-        this("Vide", 1);
+        this("Vide", 1, Arrays.asList(new Classe()));
     }
 
     public String getIntitule() {
@@ -36,13 +41,25 @@ public class Module {
         return nbPlace;
     }
 
+    public List<Classe> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Classe> classes) {
+        this.classes = classes;
+    }
+
     public void setNbPlace(int nbPlace) {
         this.nbPlace = nbPlace;
     }
     
+  
+    
+    
+    
     @Override
     public String toString() {
-        return "Module{" + "intitule=" + intitule + ", nbrPlace=" + nbPlace + '}';
+        return "Module{" + "intitule=" + intitule + ", nbrPlace=" + nbPlace + ", classe=" + classes + '}';
     }
   
     @Override
@@ -57,7 +74,11 @@ public class Module {
             return false;
         }
         final Module other = (Module) obj;
-        return Objects.equals(this.intitule, other.intitule);
+        if(!Objects.equals(this.intitule, other.intitule)){
+            return false;
+        }
+     
+        return Objects.equals(this.classes, other.classes);
     }
     
     
@@ -65,6 +86,7 @@ public class Module {
     public int hashCode() {
         int hash = 5;
         hash = 37 * hash + Objects.hashCode(this.intitule);
+        hash = 37 * hash + Objects.hashCode(this.classes);
         return hash;
     }
 }
