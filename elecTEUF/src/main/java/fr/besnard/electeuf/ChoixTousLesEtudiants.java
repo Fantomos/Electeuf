@@ -5,7 +5,10 @@
  */
 package fr.besnard.electeuf;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +35,35 @@ public class ChoixTousLesEtudiants {
         return choix;
     }
     
+    public static ChoixTousLesEtudiants genererChoixTousLesEtudiants(int nbEtudiantParSpe, int nbGroupe) throws FileNotFoundException, IOException {
+        ChoixTousLesEtudiants choixComplet = new ChoixTousLesEtudiants();
+        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiantToutesSpeParAnnee(nbEtudiantParSpe, 3);
+        List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(nbGroupe);
+        for(Etudiant etudiant : listeEtudiants){
+            choixComplet.ajouterChoix(etudiant, ChoixUnEtudiant.genererChoixUnEtudiantAlea(etudiant, listeGroupes));
+        }
+        return choixComplet;
+
+    }
+
+    @Override
+    public String toString(){
+
+        String str = "";
+        for (Map.Entry<Etudiant, ChoixUnEtudiant> entry : this.choix.entrySet()) {
+            str += "\n--------------------- VOEUX DE " + entry.getKey() + " ---------------------\n";
+            str += entry.getValue();
+            str += "---------------------------------------------------------------------------\n";
+        }
+        return str;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        
+        System.out.println(genererChoixTousLesEtudiants(1, 2));
+
+    }
+   
     
                 
    

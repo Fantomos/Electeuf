@@ -5,8 +5,6 @@
  */
 package fr.besnard.electeuf;
 
-import fr.besnard.cours.m3New.tds.TD1.ExemplePersonnesAlea;
-import static fr.besnard.electeuf.Classe.SPECIALITE;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +21,6 @@ public class Etudiant {
     private String nom;
     private String prenom;
     private Classe classe;
-    
     
     public Etudiant(String mNom, String mPrenom, Classe mClasse){
         this.nom = mNom;
@@ -43,8 +40,6 @@ public class Etudiant {
         this.classe = classe;
     }
 
-  
-    
     public String getNom() {
         return nom;
     }
@@ -61,45 +56,75 @@ public class Etudiant {
         this.prenom = prenom;
     }
     
-    
-    public static List<Etudiant> genererListeEtudiantAlea(int nb){
+    public static List<Etudiant> genererListeEtudiant(int nb){
         List<Etudiant> listeEtudiants = new ArrayList();
         for(int i = 0; i<nb; i++){
-            listeEtudiants.add(Etudiant.genererEtudiantAlea());
+            Etudiant nouveauEtudiant = Etudiant.genererEtudiant();
+            if(!listeEtudiants.contains(nouveauEtudiant)){
+                listeEtudiants.add(nouveauEtudiant);
+            }
         }
         return listeEtudiants;     
     }
     
-     
-    public static List<Etudiant> genererListeEtudiantAleaAvecAnnee(int nb, int annee){
+    public static List<Etudiant> genererListeEtudiantParAnnee(int nb, int annee){
         List<Etudiant> listeEtudiants = new ArrayList();
         for(int i = 0; i<nb; i++){
-            listeEtudiants.add(Etudiant.genererEtudiantAleaAvecAnnee(annee));
+            Etudiant nouveauEtudiant = Etudiant.genererEtudiantParAnnee(annee);
+            if(!listeEtudiants.contains(nouveauEtudiant)){
+                listeEtudiants.add(nouveauEtudiant);
+            }
+        }
+        return listeEtudiants;     
+    }
+
+    public static List<Etudiant> genererListeEtudiantParAnneeSpe(int nb, int annee, String specialite){
+        List<Etudiant> listeEtudiants = new ArrayList();
+        for(int i = 0; i<nb; i++){
+            Etudiant nouveauEtudiant = Etudiant.genererEtudiantParAnneeSpe(annee, specialite);
+            if(!listeEtudiants.contains(nouveauEtudiant)){
+                listeEtudiants.add(nouveauEtudiant);
+            }
+        }
+        return listeEtudiants;     
+    }
+
+    public static List<Etudiant> genererListeEtudiantToutesSpeParAnnee(int nbParSpe, int annee){
+        List<Etudiant> listeEtudiants = new ArrayList();
+        for(int i = 1; i<Classe.SPECIALITE.size(); i++){
+            listeEtudiants.addAll(genererListeEtudiantParAnneeSpe(nbParSpe, annee, Classe.SPECIALITE.get(i)));
         }
         return listeEtudiants;     
     }
     
-    
-    public static Etudiant genererEtudiantAlea(){
+    public static Etudiant genererEtudiant(){
         Random r = new Random();
         List<String> noms = ExemplePersonnesAlea.nomsAlea();
         List<String> prenoms = ExemplePersonnesAlea.nomsAlea();
         String nom = noms.get(r.nextInt(noms.size()));
         String prenom = prenoms.get(r.nextInt(prenoms.size()));
-        return new Etudiant(nom, prenom, Classe.genererClasseAlea());
+        return new Etudiant(nom, prenom, Classe.genererClasse());
     }
     
-    public static Etudiant genererEtudiantAleaAvecAnnee(int annee){
+    public static Etudiant genererEtudiantParAnnee(int annee){
         Random r = new Random();
         List<String> noms = ExemplePersonnesAlea.nomsAlea();
         List<String> prenoms = ExemplePersonnesAlea.nomsAlea();
         String nom = noms.get(r.nextInt(noms.size()));
         String prenom = prenoms.get(r.nextInt(prenoms.size()));
-        return new Etudiant(nom, prenom, Classe.genererClasseAleaAvecAnnee(annee));
+        return new Etudiant(nom, prenom, Classe.genererClasseParAnnee(annee));
+    }
+
+    public static Etudiant genererEtudiantParAnneeSpe(int annee, String specialite){
+        Random r = new Random();
+        List<String> noms = ExemplePersonnesAlea.nomsAlea();
+        List<String> prenoms = ExemplePersonnesAlea.nomsAlea();
+        String nom = noms.get(r.nextInt(noms.size()));
+        String prenom = prenoms.get(r.nextInt(prenoms.size()));
+        return new Etudiant(nom, prenom, new Classe(specialite,annee));
     }
     
-    
-    
+
     @Override
     public String toString(){
         return this.prenom + " " + this.nom + " " + this.classe;
@@ -138,7 +163,7 @@ public class Etudiant {
     
      public static void main(String[] args) {
   
-        System.out.println(Etudiant.genererListeEtudiantAleaAvecAnnee(40, 3).toString());
+        System.out.println(genererListeEtudiantToutesSpeParAnnee(5,3));
 
     }
   

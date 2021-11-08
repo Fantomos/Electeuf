@@ -64,16 +64,16 @@ public class Classe {
     }
     
     
-    public static List<Classe> genererListeClasseAlea(int nb){
+    public static List<Classe> genererListeClasse(int nb){
         List<Classe> listeClasses = new ArrayList();
         for(int i = 0; i<nb; i++){
-            listeClasses.add(Classe.genererClasseAlea());
+            listeClasses.add(Classe.genererClasse());
         }
         return listeClasses;     
     }
     
     
-    public static Classe genererClasseAlea(){
+    public static Classe genererClasse(){
         Random r = new Random();
         String specialite = SPECIALITE.get(r.nextInt(8));
         int annee = 2 + r.nextInt(3);
@@ -83,7 +83,7 @@ public class Classe {
         return new Classe(specialite, annee);
     }
     
-     public static Classe genererClasseAleaAvecAnnee(int mAnnee){
+    public static Classe genererClasseParAnnee(int mAnnee){
         Random r = new Random();
         String specialite = SPECIALITE.get(r.nextInt(7)+1);
         if(mAnnee == 1){
@@ -93,6 +93,7 @@ public class Classe {
             return new Classe(specialite, mAnnee);
         }    
     }
+
         
     
     @Override
@@ -128,7 +129,7 @@ public class Classe {
     }
     
      public static void main(String[] args) {
-        List<Classe> cl = Classe.genererListeClasseAlea(10);
+        List<Classe> cl = Classe.genererListeClasse(10);
         System.out.println(cl.toString());
 
     }

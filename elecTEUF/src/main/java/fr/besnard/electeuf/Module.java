@@ -54,12 +54,11 @@ public class Module {
     }
     
   
-    
-    
+
     
     @Override
     public String toString() {
-        return "Module{" + "intitule=" + intitule + ", nbrPlace=" + nbPlace + ", classe=" + classes + '}';
+        return "\nIntitule = " + intitule + " | Place = " + nbPlace + " | Classes = " + classes;
     }
   
     @Override
