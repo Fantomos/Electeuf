@@ -62,6 +62,8 @@ public class Etudiant {
             Etudiant nouveauEtudiant = Etudiant.genererEtudiant();
             if(!listeEtudiants.contains(nouveauEtudiant)){
                 listeEtudiants.add(nouveauEtudiant);
+            }else{
+                i--;
             }
         }
         return listeEtudiants;     
