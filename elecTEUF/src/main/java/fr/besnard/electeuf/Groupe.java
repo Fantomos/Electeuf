@@ -5,6 +5,12 @@
  */
 package fr.besnard.electeuf;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,6 +44,27 @@ public class Groupe {
         this.modules = modules;
     }
             
+    
+    public static List<Groupe> genererGroupeDuTableau() throws FileNotFoundException, IOException{
+        List<List<String>> tableau = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("book.csv"))) {
+            String ligne;
+            while ((ligne = br.readLine()) != null) {
+                String[] values = ligne.split(";");
+                tableau.add(Arrays.asList(values));
+        }
+            
+        for(String temp : tableau.get(0)){
+            System.out.println(temp);
+        }
+        
+        
+        }       
+    }
+             
+             
+    
+    
      @Override
     public String toString(){
         return this.nom + " " + this.modules;

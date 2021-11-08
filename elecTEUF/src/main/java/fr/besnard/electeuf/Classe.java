@@ -33,7 +33,8 @@ public class Classe {
         if("STH".equals(this.specialite) && mAnnee != 1){
             System.out.println("Erreur : Vous êtes en STH donc en 1ère année !");
             this.annee = 1;
-        }else if(mAnnee > 4 || mAnnee < 2){
+        }     
+        else if((mAnnee > 4 || mAnnee < 2) && !"STH".equals(this.specialite)){
             System.out.println("Erreur : Année incorrecte. L'année choisie sera 2.");
             this.annee = 2;
         }else{
@@ -80,6 +81,17 @@ public class Classe {
             annee = 1;
         }
         return new Classe(specialite, annee);
+    }
+    
+     public static Classe genererClasseAleaAvecAnnee(int mAnnee){
+        Random r = new Random();
+        String specialite = SPECIALITE.get(r.nextInt(7)+1);
+        if(mAnnee == 1){
+            return new Classe("STH", mAnnee);
+        }
+        else{
+            return new Classe(specialite, mAnnee);
+        }    
     }
         
     

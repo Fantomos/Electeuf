@@ -24,6 +24,7 @@ public class Etudiant {
     private String prenom;
     private Classe classe;
     
+    
     public Etudiant(String mNom, String mPrenom, Classe mClasse){
         this.nom = mNom;
         this.prenom = mPrenom;
@@ -61,10 +62,19 @@ public class Etudiant {
     }
     
     
-     public static List<Etudiant> genererListeEtudiantAlea(int nb){
+    public static List<Etudiant> genererListeEtudiantAlea(int nb){
         List<Etudiant> listeEtudiants = new ArrayList();
         for(int i = 0; i<nb; i++){
             listeEtudiants.add(Etudiant.genererEtudiantAlea());
+        }
+        return listeEtudiants;     
+    }
+    
+     
+    public static List<Etudiant> genererListeEtudiantAleaAvecAnnee(int nb, int annee){
+        List<Etudiant> listeEtudiants = new ArrayList();
+        for(int i = 0; i<nb; i++){
+            listeEtudiants.add(Etudiant.genererEtudiantAleaAvecAnnee(annee));
         }
         return listeEtudiants;     
     }
@@ -78,6 +88,17 @@ public class Etudiant {
         String prenom = prenoms.get(r.nextInt(prenoms.size()));
         return new Etudiant(nom, prenom, Classe.genererClasseAlea());
     }
+    
+    public static Etudiant genererEtudiantAleaAvecAnnee(int annee){
+        Random r = new Random();
+        List<String> noms = ExemplePersonnesAlea.nomsAlea();
+        List<String> prenoms = ExemplePersonnesAlea.nomsAlea();
+        String nom = noms.get(r.nextInt(noms.size()));
+        String prenom = prenoms.get(r.nextInt(prenoms.size()));
+        return new Etudiant(nom, prenom, Classe.genererClasseAleaAvecAnnee(annee));
+    }
+    
+    
     
     @Override
     public String toString(){
@@ -117,7 +138,7 @@ public class Etudiant {
     
      public static void main(String[] args) {
   
-        System.out.println(Etudiant.genererListeEtudiantAlea(40).toString());
+        System.out.println(Etudiant.genererListeEtudiantAleaAvecAnnee(40, 3).toString());
 
     }
   
