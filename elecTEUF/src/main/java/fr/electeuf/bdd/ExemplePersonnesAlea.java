@@ -16,11 +16,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with CoursBeuvron.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.besnard.electeuf;
+package fr.electeuf.bdd;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
