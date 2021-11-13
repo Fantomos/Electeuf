@@ -7,6 +7,7 @@ package fr.electeuf;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,10 @@ public class VoeuxTousLesEtudiants {
 
     public Map<Etudiant, VoeuxUnEtudiant> getChoix() {
         return listeVoeux;
+    }
+
+    public List<Etudiant> getListeEtudiants(){
+        return new ArrayList<>(this.listeVoeux.keySet());
     }
     
     public static VoeuxTousLesEtudiants genererChoixTousLesEtudiants(List<Etudiant> listeEtudiants, List<Groupe> listeGroupes) {

@@ -8,12 +8,12 @@ import fr.electeuf.VoeuxTousLesEtudiants;
 
 public class Population {
 
-    List<Individus> listeIndividus;
+    List<Individu> listeIndividus;
 
-    public Population(int mTaillePopulation, List<Groupe> listeGroupe, VoeuxTousLesEtudiants listeChoix) {
+    public Population(int mTaillePopulation, List<Groupe> listeGroupes, VoeuxTousLesEtudiants listeVoeux) {
         listeIndividus = new ArrayList<>();
         for (int i = 0; i < mTaillePopulation; i++) {
-            listeIndividus.add(new Individus(listeGroupe, listeChoix));
+            listeIndividus.add(Individu.genererIndividusAlea(listeVoeux.getListeEtudiants(), listeGroupes));
         }
 	}
 

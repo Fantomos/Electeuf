@@ -36,6 +36,7 @@ public class AffectationUnEtudiant {
         return affectationUnEtudiant;
     }
 
+
     @Override
     public String toString(){
         String str = "";
