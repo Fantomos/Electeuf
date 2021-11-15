@@ -24,11 +24,11 @@ public class VoeuxTousLesEtudiants {
         this.listeVoeux = new HashMap<>();
     }
     
-    public void ajouterChoix(Etudiant mEtudiant, VoeuxUnEtudiant mChoixUnEtudiant){
+    public void ajouterVoeux(Etudiant mEtudiant, VoeuxUnEtudiant mChoixUnEtudiant){
         listeVoeux.put(mEtudiant, mChoixUnEtudiant);
     }
 
-    public Map<Etudiant, VoeuxUnEtudiant> getChoix() {
+    public Map<Etudiant, VoeuxUnEtudiant> getVoeux() {
         return listeVoeux;
     }
 
@@ -36,13 +36,18 @@ public class VoeuxTousLesEtudiants {
         return new ArrayList<>(this.listeVoeux.keySet());
     }
     
-    public static VoeuxTousLesEtudiants genererChoixTousLesEtudiants(List<Etudiant> listeEtudiants, List<Groupe> listeGroupes) {
+    public static VoeuxTousLesEtudiants genererVoeuxTousLesEtudiants(List<Etudiant> listeEtudiants, List<Groupe> listeGroupes) {
         VoeuxTousLesEtudiants voeuxTousLesEtudiants = new VoeuxTousLesEtudiants();
         for(Etudiant etudiant : listeEtudiants){
-            voeuxTousLesEtudiants.ajouterChoix(etudiant, VoeuxUnEtudiant.genererChoixUnEtudiant(etudiant, listeGroupes));
+            voeuxTousLesEtudiants.ajouterVoeux(etudiant, VoeuxUnEtudiant.genererVoeuxUnEtudiant(etudiant, listeGroupes));
         }
         return voeuxTousLesEtudiants;
 
+    }
+
+    public List<Groupe> getListeGroupes(){
+        VoeuxUnEtudiant voeux = (VoeuxUnEtudiant) listeVoeux.values().toArray()[0];
+        return voeux.getListeGroupes();
     }
 
     @Override
@@ -61,7 +66,7 @@ public class VoeuxTousLesEtudiants {
         List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiantToutesSpeParAnnee(1, 3);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         System.out.println(listeGroupes);
-        System.out.println(genererChoixTousLesEtudiants(listeEtudiants, listeGroupes));
+        System.out.println(genererVoeuxTousLesEtudiants(listeEtudiants, listeGroupes));
 
     }
    

@@ -9,41 +9,94 @@ import fr.electeuf.AffectationUnEtudiant;
 import fr.electeuf.Etudiant;
 import fr.electeuf.Groupe;
 import fr.electeuf.Module;
+import fr.electeuf.VoeuxTousLesEtudiants;
+import fr.electeuf.VoeuxUnEtudiant;
 
 public class Evaluation {
 
-    double scoreTotal;
-    double scoreClasse;
+    double coutTotal;
+    double coutClasse;
+    double coutVoeux;
+    double scoreEffectif;
+    double coutEtudiant;
+    double coutRemplissage;
     public static final double COUT_PROHIBITIF = 10000;
+    public static final double COUT_MODULE_PRIORITAIRE = -50;
+    public static final double COUT_MODULE_RETICENT = 50;
 
-    public Evaluation (double mScoreClasse){
-        this.scoreClasse = mScoreClasse;
-        this.scoreTotal = scoreClasse;
+    public Evaluation (double mCoutClasse, double mCoutVoeux, double mCoutRemplissage){
+        this.coutClasse = mCoutClasse;
+        this.coutVoeux = mCoutVoeux;
+        this.coutEtudiant = mCoutClasse + mCoutVoeux;
+        this.coutRemplissage = mCoutRemplissage;
+        this.coutTotal = coutEtudiant + coutRemplissage;
     }
 
     public static Evaluation evaluerIndividus(Individu individu){
-        AffectationTousLesEtudiants affectations = individu.getAffectations();
-        double scoreClasse = evaluerClasseTousEtudiant(affectations);
-        return new Evaluation(scoreClasse);
+        AffectationTousLesEtudiants listeAffectations = individu.getListeAffectations();
+        VoeuxTousLesEtudiants listeVoeux = individu.getListeVoeux();
+        double coutClasse = evaluerClasseTousEtudiants(listeAffectations);
+        double coutVoeux = evaluerVoeuxTousEtudiants(listeVoeux, listeAffectations);
+        double coutRemplissage = evaluerRemplissage(listeAffectations);
+        return new Evaluation(coutClasse, coutVoeux, coutRemplissage);
     }
 
     public static double evaluerClasseUnEtudiant(Etudiant etudiant, AffectationUnEtudiant affectation){
-        double score = 0;
+        double cout = 0;
         for(Module module : affectation.getAffectationPourChaqueGroupe().values()){
-            if(module.getClasses().contains(etudiant.getClasse())){
-                score += 0;
-            }else{
-                score += COUT_PROHIBITIF;
+            if(etudiant.getModulesPrioritaires().contains(module)){
+                cout += COUT_MODULE_PRIORITAIRE;
+            }
+            else if(etudiant.getModulesReticent().contains(module)){
+                cout += COUT_MODULE_RETICENT;
+            }
+            else if(module.getClasses().contains(etudiant.getClasse())){
+                cout += 0;
+            }
+            else{
+                cout += COUT_PROHIBITIF;
             }
         }
-        return score;
+        return cout;
     }
 
-    public static double evaluerClasseTousEtudiant(AffectationTousLesEtudiants affectations){
-        double score = 0;
-        for (Map.Entry<Etudiant, AffectationUnEtudiant> entry : affectations.getListeAffectations().entrySet()) {
-            score += evaluerClasseUnEtudiant(entry.getKey(), entry.getValue());
+    public static double evaluerClasseTousEtudiants(AffectationTousLesEtudiants listeAffectations){
+        double cout = 0;
+        for (Map.Entry<Etudiant, AffectationUnEtudiant> entry : listeAffectations.getListeAffectations().entrySet()) {
+            cout += evaluerClasseUnEtudiant(entry.getKey(), entry.getValue());
         }
-        return score;
+        return cout;
     }
+
+    public static double evaluerVoeuxUnEtudiant(VoeuxUnEtudiant voeux, AffectationUnEtudiant affectation){
+        double cout = 0;
+        for(Map.Entry<Groupe, Module> entry : affectation.getAffectationPourChaqueGroupe().entrySet()){
+            int positionVoeux = voeux.getVoeuxPourChaqueGroupe().get(entry.getKey()).indexOf(entry.getValue());
+            if(positionVoeux == -1){
+                cout += (VoeuxUnEtudiant.NOMBRE_VOEUX+1)^2;
+            }
+            else if(positionVoeux == 0){
+                cout += 0;
+            }
+            else{
+                cout += positionVoeux^2;
+            }
+        }
+        return cout;
+    }
+
+    public static double evaluerVoeuxTousEtudiants(VoeuxTousLesEtudiants listeVoeux, AffectationTousLesEtudiants listeAffectation){
+        double cout = 0;
+        for (Map.Entry<Etudiant, AffectationUnEtudiant> entry : listeAffectation.getListeAffectations().entrySet()) {
+            cout += evaluerVoeuxUnEtudiant(listeVoeux.getVoeux().get(entry.getKey()), entry.getValue());
+        }
+        return cout;
+    }
+
+    public static double evaluerRemplissage(AffectationTousLesEtudiants listeAffectation){
+        return 0;
+
+
+    }
+
 }

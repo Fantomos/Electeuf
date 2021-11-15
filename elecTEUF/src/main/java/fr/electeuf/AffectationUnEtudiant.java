@@ -1,5 +1,6 @@
 package fr.electeuf;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,13 @@ public class AffectationUnEtudiant {
         return affectationUnEtudiant;
     }
 
+    public List<Module> getListeModulesAffecte(){
+        return new ArrayList<>(affectationPourChaqueGroupe.values());
+    }
+
+    public List<Groupe> getListeGroupes(){
+        return new ArrayList<>(affectationPourChaqueGroupe.keySet());
+    }
 
     @Override
     public String toString(){

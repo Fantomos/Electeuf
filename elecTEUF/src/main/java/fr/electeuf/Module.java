@@ -15,17 +15,25 @@ import java.util.Objects;
  */
 public class Module {
     private String intitule;
-    private int nbPlace;
     private List<Classe> classes;
+    private int nbPlaceMin;
+    private int nbPlaceOpti;
+    private int nbPlaceMax;
+    private int NB_PLACE_MIN_DEFAUT = 16;
+    private int NB_PLACE_OPTI_DEFAUT = 20;
+    private int NB_PLACE_MAX_DEFAUT = 24;
+
     
-    public Module (String mIntitule, int mNbPlace, List<Classe> mClasses){
+    public Module (String mIntitule, List<Classe> mClasses){
         this.intitule = mIntitule;
-        this.nbPlace = mNbPlace;
         this.classes = mClasses;
+        this.nbPlaceMin = NB_PLACE_MIN_DEFAUT;
+        this.nbPlaceOpti = NB_PLACE_OPTI_DEFAUT;
+        this.nbPlaceMax = NB_PLACE_MAX_DEFAUT;
     }
    
     public Module(){
-        this("Vide", 1, Arrays.asList(new Classe()));
+        this("Vide", Arrays.asList(new Classe()));
     }
 
     public String getIntitule() {
@@ -37,7 +45,7 @@ public class Module {
     }
 
     public int getNbPlace() {
-        return nbPlace;
+        return nbPlaceMax;
     }
 
     public List<Classe> getClasses() {
@@ -49,7 +57,7 @@ public class Module {
     }
 
     public void setNbPlace(int nbPlace) {
-        this.nbPlace = nbPlace;
+        this.nbPlaceMax = nbPlace;
     }
     
   
@@ -57,7 +65,7 @@ public class Module {
     
     @Override
     public String toString() {
-        return "\nIntitule = " + intitule + " | Place = " + nbPlace + " | Classes = " + classes;
+        return "\nIntitule = " + intitule + " | Place = " + nbPlaceMax + " | Classes = " + classes;
     }
   
     @Override

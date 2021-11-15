@@ -22,11 +22,15 @@ public class Etudiant {
     private String nom;
     private String prenom;
     private Classe classe;
+    private List<Module> modulesPrioritaires;
+    private List<Module> modulesReticent;
     
     public Etudiant(String mNom, String mPrenom, Classe mClasse){
         this.nom = mNom;
         this.prenom = mPrenom;
         this.classe = mClasse;
+        this.modulesPrioritaires = new ArrayList<>();
+        this.modulesReticent = new ArrayList<>();
     }
 
     public Etudiant() {
@@ -55,6 +59,13 @@ public class Etudiant {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+    
+    public List<Module> getModulesPrioritaires() {
+        return modulesPrioritaires;
+    }
+    public List<Module> getModulesReticent() {
+        return modulesReticent;
     }
     
     public static List<Etudiant> genererListeEtudiant(int nb){

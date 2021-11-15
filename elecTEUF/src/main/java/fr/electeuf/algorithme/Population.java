@@ -10,10 +10,10 @@ public class Population {
 
     List<Individu> listeIndividus;
 
-    public Population(int mTaillePopulation, List<Groupe> listeGroupes, VoeuxTousLesEtudiants listeVoeux) {
+    public Population(int mTaillePopulation, VoeuxTousLesEtudiants listeVoeux) {
         listeIndividus = new ArrayList<>();
         for (int i = 0; i < mTaillePopulation; i++) {
-            listeIndividus.add(Individu.genererIndividusAlea(listeVoeux.getListeEtudiants(), listeGroupes));
+            listeIndividus.add(Individu.genererIndividusAlea(listeVoeux));
         }
 	}
 

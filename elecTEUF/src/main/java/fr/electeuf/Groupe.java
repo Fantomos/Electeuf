@@ -89,7 +89,7 @@ public class Groupe {
                     listeClasse.add(new Classe(val,Integer.parseInt(values[posAnnee])));
                 }
                 int creneau = Integer.parseInt(values[3].split(",")[0]);
-                groupeParCreneau.get(creneau-1).ajouterModule(new Module(values[posNom], 24, listeClasse));
+                groupeParCreneau.get(creneau-1).ajouterModule(new Module(values[posNom], listeClasse));
             }
         }
         
