@@ -49,7 +49,7 @@ public class AffectationUnEtudiant {
     public String toString(){
         String str = "";
         for (Map.Entry<Groupe, Module> entry : this.affectationPourChaqueGroupe.entrySet()) {
-            str += entry.getKey().getNom() + " : " + entry.getValue() + "\n";
+            str += entry.getKey().getNom() + " : " + entry.getValue();
         }
         return str;
     }

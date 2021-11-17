@@ -37,7 +37,7 @@ public class VoeuxUnEtudiant {
         for(Groupe groupe : listeGroupe){
             List<Module> listeModuleOrginale = new ArrayList<>();
             for(Module module : groupe.getModules()){
-                if(module.getClasses().contains(etudiant.getClasse())){
+                if(module.getClassesAcceptees().contains(etudiant.getClasse())){
                     listeModuleOrginale.add(module);
                 }
             }

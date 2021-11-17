@@ -5,6 +5,7 @@
  */
 package fr.electeuf;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +16,9 @@ import java.util.Objects;
  */
 public class Module {
     private String intitule;
-    private List<Classe> classes;
+    private List<Classe> classesAcceptees;
+    private List<Classe> classesPrioritaires;
+    private List<Classe> classesReticentes;
     private int nbPlaceMin;
     private int nbPlaceOpti;
     private int nbPlaceMax;
@@ -24,9 +27,11 @@ public class Module {
     private int NB_PLACE_MAX_DEFAUT = 24;
 
     
-    public Module (String mIntitule, List<Classe> mClasses){
+    public Module (String mIntitule, List<Classe> mClassesAcceptees){
         this.intitule = mIntitule;
-        this.classes = mClasses;
+        this.classesAcceptees = mClassesAcceptees;
+        this.classesPrioritaires = new ArrayList<>();
+        this.classesReticentes = new ArrayList<>();
         this.nbPlaceMin = NB_PLACE_MIN_DEFAUT;
         this.nbPlaceOpti = NB_PLACE_OPTI_DEFAUT;
         this.nbPlaceMax = NB_PLACE_MAX_DEFAUT;
@@ -44,16 +49,32 @@ public class Module {
         this.intitule = intitule;
     }
 
-    public int getNbPlace() {
+    public int getNbPlaceMax() {
         return nbPlaceMax;
     }
 
-    public List<Classe> getClasses() {
-        return classes;
+    public int getNbPlaceMin() {
+        return nbPlaceMin;
+    }
+
+    public int getNbPlaceOpti() {
+        return nbPlaceOpti;
+    }
+
+    public List<Classe> getClassesAcceptees() {
+        return classesAcceptees;
+    }
+
+    public List<Classe> getClassesPrioritaires() {
+        return classesPrioritaires;
+    }
+
+    public List<Classe> getClassesReticentes() {
+        return classesReticentes;
     }
 
     public void setClasses(List<Classe> classes) {
-        this.classes = classes;
+        this.classesAcceptees = classes;
     }
 
     public void setNbPlace(int nbPlace) {
@@ -65,7 +86,7 @@ public class Module {
     
     @Override
     public String toString() {
-        return "\nIntitule = " + intitule + " | Place = " + nbPlaceMax + " | Classes = " + classes;
+        return "Intitule = " + intitule + " | Place (Min/Opti/Max)= " + nbPlaceMin + "/" + nbPlaceOpti + "/" + nbPlaceMax + " | Classes (Acceptees/Prioritaires/Reticentes) = " + classesAcceptees + "/" + classesPrioritaires + "/" + classesReticentes + "\n";
     }
   
     @Override
@@ -84,7 +105,7 @@ public class Module {
             return false;
         }
      
-        return Objects.equals(this.classes, other.classes);
+        return Objects.equals(this.classesAcceptees, other.classesAcceptees);
     }
     
     
@@ -92,7 +113,7 @@ public class Module {
     public int hashCode() {
         int hash = 5;
         hash = 37 * hash + Objects.hashCode(this.intitule);
-        hash = 37 * hash + Objects.hashCode(this.classes);
+        hash = 37 * hash + Objects.hashCode(this.classesAcceptees);
         return hash;
     }
 }

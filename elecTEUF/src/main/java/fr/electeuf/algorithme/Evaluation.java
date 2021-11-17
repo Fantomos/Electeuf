@@ -32,25 +32,24 @@ public class Evaluation {
         this.coutTotal = coutEtudiant + coutRemplissage;
     }
 
-    public static Evaluation evaluerIndividus(Individu individu){
+    public static Evaluation evaluerIndividus(Individu individu, VoeuxTousLesEtudiants listeVoeux){
         AffectationTousLesEtudiants listeAffectations = individu.getListeAffectations();
-        VoeuxTousLesEtudiants listeVoeux = individu.getListeVoeux();
         double coutClasse = evaluerClasseTousEtudiants(listeAffectations);
         double coutVoeux = evaluerVoeuxTousEtudiants(listeVoeux, listeAffectations);
-        double coutRemplissage = evaluerRemplissage(listeAffectations);
+        double coutRemplissage = evaluerRemplissageTousModules(listeAffectations);
         return new Evaluation(coutClasse, coutVoeux, coutRemplissage);
     }
 
     public static double evaluerClasseUnEtudiant(Etudiant etudiant, AffectationUnEtudiant affectation){
         double cout = 0;
         for(Module module : affectation.getAffectationPourChaqueGroupe().values()){
-            if(etudiant.getModulesPrioritaires().contains(module)){
+            if(module.getClassesPrioritaires().contains(etudiant.getClasse()) || etudiant.getModulesPrioritaires().contains(module)){
                 cout += COUT_MODULE_PRIORITAIRE;
             }
-            else if(etudiant.getModulesReticent().contains(module)){
+            else if(module.getClassesReticentes().contains(etudiant.getClasse()) || etudiant.getModulesReticent().contains(module)){
                 cout += COUT_MODULE_RETICENT;
             }
-            else if(module.getClasses().contains(etudiant.getClasse())){
+            else if(module.getClassesAcceptees().contains(etudiant.getClasse())){
                 cout += 0;
             }
             else{
@@ -93,10 +92,35 @@ public class Evaluation {
         return cout;
     }
 
-    public static double evaluerRemplissage(AffectationTousLesEtudiants listeAffectation){
-        return 0;
+    public static double evaluerRemplissageTousModules(AffectationTousLesEtudiants listeAffectation){
+        double cout = 0; 
+        for(Map.Entry<Module,Integer> entry : listeAffectation.getNbEtudiantParModule().entrySet()){
+            cout += evaluerRemplissageUnModules(entry.getKey(), entry.getValue());
+        }
+        return cout;
+    }
 
+    public static double evaluerRemplissageUnModules(Module module, int nbEtudiants){
+        double cout = 0; 
+        if(nbEtudiants == module.getNbPlaceOpti() || nbEtudiants == 0){
+            cout += 0;
+        }
+        else if(nbEtudiants > module.getNbPlaceMax() || nbEtudiants < module.getNbPlaceMin()){
+            cout += COUT_PROHIBITIF;
+        }
+        else
+        {
+            cout+= (nbEtudiants - module.getNbPlaceOpti())^2;
+        }
+        return cout;
+    }
 
+    @Override
+    public String toString(){
+        String str = "COUT TOTAL : " + this.coutTotal + " \n";
+        str += "COUT ETUDIANT : " + this.coutEtudiant + " (Classe : " + this.coutClasse + " et Voeux : " + this.coutVoeux + ")\n";
+        str += "COUT ETABLISSEMENT : " + this.coutRemplissage + " (Remplissage)";
+        return str;
     }
 
 }

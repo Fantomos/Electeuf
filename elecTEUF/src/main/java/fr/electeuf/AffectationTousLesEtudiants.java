@@ -88,6 +88,15 @@ public class AffectationTousLesEtudiants {
     }
 
 
+    public String voirNombresEtudiantsParModule(){
+        String str = "\n----------------------- NOMBRES ETUDIANTS PAR MODULES ----------------------\n";
+        for (Map.Entry<Module,Integer> entry : this.getNbEtudiantParModule().entrySet()) {
+            str += entry.getKey() + " : " + entry.getValue();
+        }
+        str += "\n---------------------------------------------------------------------------\n";
+        return str;
+    }
+
     @Override
     public String toString(){
 
@@ -100,12 +109,12 @@ public class AffectationTousLesEtudiants {
         return str;
     }
 
+
     public static void main(String[] args) throws FileNotFoundException, IOException {
         List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiantToutesSpeParAnnee(1, 3);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         AffectationTousLesEtudiants test = genererAffectationTousLesEtudiants(listeEtudiants, listeGroupes);
         System.out.println(test);
         System.out.println(test.getNbEtudiantParModule());
-        System.out.println(test.getNbEtudiantParModule2());
     }
 }
