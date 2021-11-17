@@ -36,14 +36,15 @@ public class Population {
         this.getListeIndividus().remove(this.getTaillePopulation()-1);
     }
 
+
     public void prochaineEvolution(){
         Random r = new Random();
         Individu nouveauIndividu;
-        if(r.nextFloat() < 0.7){
+        if(r.nextFloat() < 0.7){ // Mutation
             Individu individuOriginal = this.getIndividu(r.nextInt(this.getTaillePopulation()));
             nouveauIndividu = Individu.mutation(individuOriginal, r);
         }
-        else{
+        else{ // Croisement
             Individu individu1 = this.getIndividu(r.nextInt(this.getTaillePopulation()));
             Individu individu2 = this.getIndividu(r.nextInt(this.getTaillePopulation()));
             nouveauIndividu = Individu.croisement(individu1, individu2, r);
@@ -54,6 +55,7 @@ public class Population {
             trierPopulation();
         }
     }
+
 
     public int getTaillePopulation(){
         return this.getListeIndividus().size();
