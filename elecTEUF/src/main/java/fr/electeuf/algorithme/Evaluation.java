@@ -3,6 +3,7 @@ package fr.electeuf.algorithme;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import fr.electeuf.AffectationTousLesEtudiants;
 import fr.electeuf.AffectationUnEtudiant;
@@ -12,12 +13,11 @@ import fr.electeuf.Module;
 import fr.electeuf.VoeuxTousLesEtudiants;
 import fr.electeuf.VoeuxUnEtudiant;
 
-public class Evaluation {
+public class Evaluation{
 
     double coutTotal;
     double coutClasse;
     double coutVoeux;
-    double scoreEffectif;
     double coutEtudiant;
     double coutRemplissage;
     public static final double COUT_PROHIBITIF = 10000;
@@ -32,8 +32,9 @@ public class Evaluation {
         this.coutTotal = coutEtudiant + coutRemplissage;
     }
 
-    public static Evaluation evaluerIndividus(Individu individu, VoeuxTousLesEtudiants listeVoeux){
-        AffectationTousLesEtudiants listeAffectations = individu.getListeAffectations();
+    public static Evaluation evaluerIndividus(Individu individu){
+        AffectationTousLesEtudiants listeAffectations = individu.getAffectationTousLesEtudiants();
+        VoeuxTousLesEtudiants listeVoeux = individu.getListeVoeux();
         double coutClasse = evaluerClasseTousEtudiants(listeAffectations);
         double coutVoeux = evaluerVoeuxTousEtudiants(listeVoeux, listeAffectations);
         double coutRemplissage = evaluerRemplissageTousModules(listeAffectations);
@@ -115,11 +116,71 @@ public class Evaluation {
         return cout;
     }
 
+    public double getCoutTotal() {
+        return coutTotal;
+    }
+
+    public double getCoutClasse() {
+        return coutClasse;
+    }
+
+
+    public double getCoutVoeux() {
+        return coutVoeux;
+    }
+
+    public double getCoutEtudiant() {
+        return coutEtudiant;
+    }
+
+
+    public double getCoutRemplissage() {
+        return coutRemplissage;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Evaluation other = (Evaluation) obj;
+        if (!Objects.equals(this.getCoutTotal(), other.getCoutTotal())) {
+            return false;
+        }
+        if (!Objects.equals(this.getCoutEtudiant(), other.getCoutEtudiant())) {
+            return false;
+        }
+        if (!Objects.equals(this.getCoutVoeux(), other.getCoutVoeux())) {
+            return false;
+        }
+        if (!Objects.equals(this.getCoutClasse(), other.getCoutClasse())) {
+            return false;
+        }
+        return Objects.equals(this.getCoutRemplissage(), other.getCoutRemplissage());
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.getCoutTotal());
+        hash = 97 * hash + Objects.hashCode(this.getCoutEtudiant());
+        hash = 97 * hash + Objects.hashCode(this.getCoutVoeux());
+        hash = 97 * hash + Objects.hashCode(this.getCoutClasse());
+        hash = 97 * hash + Objects.hashCode(this.getCoutRemplissage());
+        return hash;
+    }
+
     @Override
     public String toString(){
-        String str = "COUT TOTAL : " + this.coutTotal + " \n";
-        str += "COUT ETUDIANT : " + this.coutEtudiant + " (Classe : " + this.coutClasse + " et Voeux : " + this.coutVoeux + ")\n";
-        str += "COUT ETABLISSEMENT : " + this.coutRemplissage + " (Remplissage)";
+        String str = "COUT TOTAL : " + this.getCoutTotal() + " \n";
+        str += "COUT ETUDIANT : " + this.getCoutEtudiant() + " (Classe : " + this.getCoutClasse() + " et Voeux : " + this.getCoutVoeux() + ")\n";
+        str += "COUT ETABLISSEMENT : " + this.getCoutRemplissage() + " (Remplissage)";
         return str;
     }
 
