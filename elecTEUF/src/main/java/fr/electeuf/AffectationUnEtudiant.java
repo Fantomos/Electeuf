@@ -1,5 +1,6 @@
 package fr.electeuf;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,7 @@ public class AffectationUnEtudiant {
     }
 
     public void modifierAffectationModule(Groupe groupe, Module module){
-        this.ajouterAffectationModule(groupe, module);
+        this.affectationPourChaqueGroupe.replace(groupe, module);
     }
     
     public static AffectationUnEtudiant genererAffectationUnEtudiant(List<Groupe> listeGroupes) {
@@ -45,6 +46,18 @@ public class AffectationUnEtudiant {
             affectationUnEtudiant.ajouterAffectationModule(groupe, module);
         }
         return affectationUnEtudiant;
+    }
+
+    public static AffectationUnEtudiant supprimeAffectationModule(AffectationUnEtudiant affectationOriginal, Module module, Random r){
+        AffectationUnEtudiant affectationModifie = new AffectationUnEtudiant(affectationOriginal);
+        for(Map.Entry<Groupe,Module> entry :  affectationOriginal.getAffectationPourChaqueGroupe().entrySet()){
+            if(entry.getValue().equals(module)){
+                List<Module> listeModules = new ArrayList<>(entry.getKey().getModules());
+                listeModules.remove(module);
+                affectationModifie.modifierAffectationModule(entry.getKey(), listeModules.get(r.nextInt(listeModules.size())));
+            }
+        }
+        return affectationModifie;
     }
 
     public static AffectationUnEtudiant modifierModuleAlea(AffectationUnEtudiant affectationOriginal ,Random r){
@@ -85,7 +98,7 @@ public class AffectationUnEtudiant {
     public String toString(){
         String str = "";
         for (Map.Entry<Groupe, Module> entry : this.getAffectationPourChaqueGroupe().entrySet()) {
-            str += entry.getKey().getNom() + " : " + entry.getValue();
+            str += "\n" + entry.getKey().getNom() + " : " + entry.getValue();
         }
         return str;
     }

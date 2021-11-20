@@ -86,7 +86,7 @@ public class Module {
     
     @Override
     public String toString() {
-        return "Intitule = " + intitule + " | Place (Min/Opti/Max)= " + nbPlaceMin + "/" + nbPlaceOpti + "/" + nbPlaceMax + " | Classes (Acceptees/Prioritaires/Reticentes) = " + classesAcceptees + "/" + classesPrioritaires + "/" + classesReticentes + "\n";
+        return "\nIntitule = " + intitule + " | Place (Min/Opti/Max)= " + nbPlaceMin + "/" + nbPlaceOpti + "/" + nbPlaceMax + " | Classes (Acceptees/Prioritaires/Reticentes) = " + classesAcceptees + "/" + classesPrioritaires + "/" + classesReticentes;
     }
   
     @Override

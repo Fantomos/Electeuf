@@ -50,8 +50,6 @@ public class Individu implements Comparable<Individu>{
     }
 
 
-
-
     public Evaluation getCouts(){
             return couts;
     }
@@ -60,8 +58,14 @@ public class Individu implements Comparable<Individu>{
         return id;
     }
 
-    public static Individu mutation(Individu individuOriginal, Random r){
+
+    public static Individu mutationClassique(Individu individuOriginal, Random r){
         AffectationTousLesEtudiants affectationTousLesEtudiants = AffectationTousLesEtudiants.modifierAffectationAlea(individuOriginal.getAffectationTousLesEtudiants(), r);
+        return new Individu(affectationTousLesEtudiants, individuOriginal.getListeVoeux());
+    }
+
+    public static Individu mutationVideModule(Individu individuOriginal, Random r){
+        AffectationTousLesEtudiants affectationTousLesEtudiants = AffectationTousLesEtudiants.supprimerAffectationModule(individuOriginal.getAffectationTousLesEtudiants(), r);
         return new Individu(affectationTousLesEtudiants, individuOriginal.getListeVoeux());
     }
 

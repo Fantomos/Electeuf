@@ -52,6 +52,16 @@ public class AffectationTousLesEtudiants {
         return affectationTousLesEtudiants;
     }
 
+    public static AffectationTousLesEtudiants supprimerAffectationModule(AffectationTousLesEtudiants affectationOriginal, Random r){
+        AffectationTousLesEtudiants affectationModifie = new AffectationTousLesEtudiants(affectationOriginal);
+        List<Module> listeModulesAffecte = affectationOriginal.getListeModuleAffecte();
+        Module moduleAlea = listeModulesAffecte.get(r.nextInt(listeModulesAffecte.size()));
+        for (Map.Entry<Etudiant, AffectationUnEtudiant> entry : affectationOriginal.getListeAffectations().entrySet()) {
+            affectationModifie.modifierAffectation(entry.getKey(), AffectationUnEtudiant.supprimeAffectationModule(entry.getValue(), moduleAlea, r));
+        }
+        return affectationModifie;
+    }
+
     public static AffectationTousLesEtudiants modifierAffectationAlea(AffectationTousLesEtudiants affectationOriginal, Random r){
         AffectationTousLesEtudiants affectationModifie = new AffectationTousLesEtudiants(affectationOriginal);
         List<Etudiant> listeEtudiant = affectationModifie.getListeEtudiants();
@@ -120,8 +130,8 @@ public class AffectationTousLesEtudiants {
 
     public String voirNombresEtudiantsParModule(){
         String str = "\n----------------------- NOMBRES ETUDIANTS PAR MODULES ----------------------\n";
-        for (Map.Entry<Module,Integer> entry : this.getNbEtudiantParModule().entrySet()) {
-            str += entry.getKey() + " : " + entry.getValue();
+        for (Map.Entry<Module,Integer> entry : this.getNbEtudiantParModule2().entrySet()) {
+            str += entry.getKey() + " : " + entry.getValue() + "\n";
         }
         str += "\n---------------------------------------------------------------------------\n";
         return str;

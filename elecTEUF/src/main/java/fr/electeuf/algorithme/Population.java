@@ -16,12 +16,14 @@ public class Population {
 
     private List<Individu> listeIndividus;
     private VoeuxTousLesEtudiants listeVoeux;
-    public static final float PROBA_MUTATION = 0.7f;
-    public static final int NB_MUTATION = 1;
+    private int nbIteration;
+    public static final float PROBA_MUTATION = 0.1f;
+    public static final float PROBA_MUTATION_VIDE_MODULE = 0.1f;
    
     public Population(int mTaillePopulation, List<Etudiant> mListeEtudiants, List<Groupe> mListeGroupes, VoeuxTousLesEtudiants mListeVoeux) {
         this.listeVoeux = mListeVoeux; 
         this.listeIndividus = new ArrayList<>();
+        this.nbIteration = 0;
         for (int i = 0; i < mTaillePopulation; i++) {
             this.listeIndividus.add(Individu.genererIndividusAlea(mListeEtudiants, mListeGroupes, mListeVoeux));
         }
@@ -40,23 +42,37 @@ public class Population {
     public void prochaineEvolution(){
         Random r = new Random();
         Individu nouveauIndividu;
-        if(r.nextFloat() < 0.7){ // Mutation
-            Individu individuOriginal = this.getIndividu(r.nextInt(this.getTaillePopulation()));
-            nouveauIndividu = Individu.mutation(individuOriginal, r);
+        if(r.nextFloat() < PROBA_MUTATION){ // Mutation
+            // MUTATION SPECIFIQUE : VIDE MODULE COMPLET
+            if(r.nextFloat() < PROBA_MUTATION_VIDE_MODULE){
+                Individu individuOriginal = this.getIndividu(r.nextInt(this.getTaillePopulation()));
+                nouveauIndividu = Individu.mutationVideModule(individuOriginal, r);
+            }
+            // MUTATION CLASSIQUE
+            else{
+                Individu individuOriginal = this.getIndividu(r.nextInt(this.getTaillePopulation()));
+                nouveauIndividu = Individu.mutationClassique(individuOriginal, r);
+            }
+            
         }
         else{ // Croisement
             Individu individu1 = this.getIndividu(r.nextInt(this.getTaillePopulation()));
             Individu individu2 = this.getIndividu(r.nextInt(this.getTaillePopulation()));
             nouveauIndividu = Individu.croisement(individu1, individu2, r);
         }
+
+        // Si le nouvel individu est meilleur que le plus mauvais de la population, on supprime le plus mauvais et on rajoute le nouvel individus
         if(nouveauIndividu.getCouts().getCoutTotal() < this.getPireCout().getCoutTotal()){
             this.supprimerPlusMauvaisIndividu();
             this.ajouterIndividu(nouveauIndividu);
             trierPopulation();
         }
+
+        this.setNbIteration(this.getNbIteration()+1);
+
     }
 
-
+    
     public int getTaillePopulation(){
         return this.getListeIndividus().size();
     }
@@ -78,6 +94,14 @@ public class Population {
         return listeVoeux;
     }
 
+
+    public int getNbIteration() {
+        return nbIteration;
+    }
+
+    public void setNbIteration(int nbIteration) {
+        this.nbIteration = nbIteration;
+    }
 
     public Evaluation getCoutMedian() {
         return this.getListeIndividus().get((int) Math.round(this.getListeIndividus().size()-1)/2).getCouts();
@@ -106,15 +130,16 @@ public class Population {
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiantToutesSpeParAnnee(20, 3);
+        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiantToutesSpeParAnnee(30, 3);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         VoeuxTousLesEtudiants listeVoeux = VoeuxTousLesEtudiants.genererVoeuxTousLesEtudiants(listeEtudiants, listeGroupes);
         Population pop = new Population(100, listeEtudiants, listeGroupes, listeVoeux);
         System.out.println(pop);
-        for(int i=0;i<10000;i++){
+        for(int i=0;i<1000000;i++){
             pop.prochaineEvolution();
         }
         System.out.println(pop);
+      
 
     }
 
