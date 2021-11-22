@@ -63,7 +63,8 @@ public class VoeuxTousLesEtudiants {
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiantToutesSpeParAnnee(1, 3);
+        List<List<String>> listeAnnuaire = Etudiant.genererAnnuaireDuTableau();
+        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,2,20);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         System.out.println(listeGroupes);
         System.out.println(genererVoeuxTousLesEtudiants(listeEtudiants, listeGroupes));

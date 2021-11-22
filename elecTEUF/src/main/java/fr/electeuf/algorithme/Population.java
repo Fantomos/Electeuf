@@ -68,6 +68,8 @@ public class Population {
             trierPopulation();
         }
 
+
+
         this.setNbIteration(this.getNbIteration()+1);
 
     }
@@ -130,15 +132,17 @@ public class Population {
     }
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiantToutesSpeParAnnee(30, 3);
+        List<List<String>> listeAnnuaire = Etudiant.genererAnnuaireDuTableau();
+        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,2,20);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         VoeuxTousLesEtudiants listeVoeux = VoeuxTousLesEtudiants.genererVoeuxTousLesEtudiants(listeEtudiants, listeGroupes);
         Population pop = new Population(100, listeEtudiants, listeGroupes, listeVoeux);
         System.out.println(pop);
-        for(int i=0;i<1000000;i++){
+        for(int i=0;i<100000;i++){
             pop.prochaineEvolution();
         }
         System.out.println(pop);
+        System.out.println(pop.getIndividu(0).voirNombresEtudiantsParModule());
       
 
     }

@@ -69,40 +69,43 @@ public class Groupe {
     
     public static List<Groupe> genererGroupeDuTableau(int nbGroupe) throws FileNotFoundException, IOException{
         final int posNom = 0;
-        final int posProf = 1;
-        final int posCreneau = 3;
-        final int posSpe = 4;
-        final int posAnnee = 5;
-        final int nbCreneau = 6;
+        final int posCreneau = 1;
+        final int posSpe = 2;
+        final int posAnnee = 3;
+        final int posNbMin = 4;
+        final int posNbOpti = 5;
+        final int posNbMax = 6;
 
-        List<Groupe> groupeParCreneau = new ArrayList<>();
-        for(int i=0; i<nbCreneau;i++){
-            groupeParCreneau.add(new Groupe(String.valueOf(i+1)));
+        List<Groupe> listeGroupes = new ArrayList<>();
+        for(int i=0; i<nbGroupe;i++){
+            listeGroupes.add(new Groupe(String.valueOf(i+1)));
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("elecTEUF/src/main/java/fr/electeuf/bdd/tableau.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("elecTEUF/src/main/java/fr/electeuf/bdd/tableau_modules.csv"))) {
             String ligne = br.readLine();
             while ((ligne = br.readLine()) != null) {
                 String[] values = ligne.split(";");
                 List<Classe> listeClasse = new ArrayList<>();
-                for (String val : values[posSpe].split(",")) {
-                    listeClasse.add(new Classe(val,Integer.parseInt(values[posAnnee])));
+                for(String v : values[posAnnee].split(",")){
+                    for (String val : values[posSpe].split(",")) {
+                        if(val.equals(Classe.SPECIALITE.get(0))){
+                            listeClasse.add(new Classe(val,1));
+                        }
+                        else{
+                            listeClasse.add(new Classe(val,Integer.parseInt(v)));
+                        }
+                    }
                 }
-                int creneau = Integer.parseInt(values[3].split(",")[0]);
-                groupeParCreneau.get(creneau-1).ajouterModule(new Module(values[posNom], listeClasse));
+
+                Module module = new Module(values[posNom],listeClasse);
+                for(String g : values[posCreneau].split(",")){
+                    listeGroupes.get(Integer.parseInt(g)-1).ajouterModule(module);
+                }
             }
         }
         
-        List<Groupe> groupeFinaux = new ArrayList<>();
-        for(int i=0; i<nbGroupe;i++){
-            groupeFinaux.add(new Groupe("GROUPE " + String.valueOf(i+1)));
-        }
-        for(Groupe groupe : groupeParCreneau){
-            Groupe groupeMoinsModule = groupeFinaux.stream().min(Comparator.comparing(Groupe::nombreModules)).orElseThrow(NoSuchElementException::new);;
-            groupeMoinsModule.ajouterModule(groupe.getModules());
-        }
 
-        return groupeFinaux;
+        return listeGroupes;
     }
              
     public static void main(String[] args) throws FileNotFoundException, IOException {

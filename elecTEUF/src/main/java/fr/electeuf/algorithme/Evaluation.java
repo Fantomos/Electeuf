@@ -23,13 +23,15 @@ public class Evaluation{
     public static final double COUT_PROHIBITIF = 10000;
     public static final double COUT_MODULE_PRIORITAIRE = -50;
     public static final double COUT_MODULE_RETICENT = 50;
+    public static final double COUT_COEF_ETUDIANT = 1.5;
+    public static final double COUT_COEF_REMPLISSAGE = 1;
 
     public Evaluation (double mCoutClasse, double mCoutVoeux, double mCoutRemplissage){
         this.coutClasse = mCoutClasse;
         this.coutVoeux = mCoutVoeux;
         this.coutEtudiant = mCoutClasse + mCoutVoeux;
         this.coutRemplissage = mCoutRemplissage;
-        this.coutTotal = coutEtudiant + coutRemplissage;
+        this.coutTotal = COUT_COEF_ETUDIANT*coutEtudiant + COUT_COEF_REMPLISSAGE*coutRemplissage;
     }
 
     public static Evaluation evaluerIndividus(Individu individu){
@@ -111,7 +113,7 @@ public class Evaluation{
         }
         else
         {
-            cout+= (nbEtudiants - module.getNbPlaceOpti())^2;
+            cout+= (Math.abs(nbEtudiants - module.getNbPlaceOpti()))^2;
         }
         return cout;
     }
