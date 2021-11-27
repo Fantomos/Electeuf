@@ -87,24 +87,23 @@ public class Groupe {
                 String[] values = ligne.split(";");
                 List<Classe> listeClasse = new ArrayList<>();
                 for(String v : values[posAnnee].split(",")){
-                    for (String val : values[posSpe].split(",")) {
-                        if(val.equals(Classe.SPECIALITE.get(0))){
-                            listeClasse.add(new Classe(val,1));
-                        }
-                        else{
+                    if(v.equals("1")){
+                        listeClasse.add(new Classe("STH",Integer.parseInt(v)));
+                    }
+                    else{
+                        for (String val : values[posSpe].split(",")) {
                             listeClasse.add(new Classe(val,Integer.parseInt(v)));
                         }
                     }
                 }
 
-                Module module = new Module(values[posNom],listeClasse);
+                Module module = new Module(values[posNom],Integer.parseInt(values[posNbMin]),Integer.parseInt(values[posNbOpti]),Integer.parseInt(values[posNbMax]), listeClasse);
                 for(String g : values[posCreneau].split(",")){
                     listeGroupes.get(Integer.parseInt(g)-1).ajouterModule(module);
                 }
             }
         }
         
-
         return listeGroupes;
     }
              

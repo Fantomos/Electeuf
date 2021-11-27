@@ -17,12 +17,14 @@ public class Population {
     private List<Individu> listeIndividus;
     private VoeuxTousLesEtudiants listeVoeux;
     private int nbIteration;
+    private int taillePopulation;
     public static final float PROBA_MUTATION = 0.1f;
     public static final float PROBA_MUTATION_VIDE_MODULE = 0.1f;
    
     public Population(int mTaillePopulation, List<Etudiant> mListeEtudiants, List<Groupe> mListeGroupes, VoeuxTousLesEtudiants mListeVoeux) {
         this.listeVoeux = mListeVoeux; 
-        this.listeIndividus = new ArrayList<>();
+        this.taillePopulation = mTaillePopulation;
+        this.listeIndividus = Collections.synchronizedList(new ArrayList<Individu>());
         this.nbIteration = 0;
         for (int i = 0; i < mTaillePopulation; i++) {
             this.listeIndividus.add(Individu.genererIndividusAlea(mListeEtudiants, mListeGroupes, mListeVoeux));
@@ -34,44 +36,59 @@ public class Population {
         this.getListeIndividus().add(individu);
     }
 
-    public void supprimerPlusMauvaisIndividu(){
-        this.getListeIndividus().remove(this.getTaillePopulation()-1);
+    public void supprimerIndivusSupp(){
+        for(int i=0; i<getTaillePopulation() - taillePopulation;i++){
+            this.getListeIndividus().remove(this.getTaillePopulation()-1);
+        }
     }
 
 
-    public void prochaineEvolution(){
-        Random r = new Random();
-        Individu nouveauIndividu;
-        if(r.nextFloat() < PROBA_MUTATION){ // Mutation
-            // MUTATION SPECIFIQUE : VIDE MODULE COMPLET
-            if(r.nextFloat() < PROBA_MUTATION_VIDE_MODULE){
-                Individu individuOriginal = this.getIndividu(r.nextInt(this.getTaillePopulation()));
-                nouveauIndividu = Individu.mutationVideModule(individuOriginal, r);
-            }
-            // MUTATION CLASSIQUE
-            else{
-                Individu individuOriginal = this.getIndividu(r.nextInt(this.getTaillePopulation()));
-                nouveauIndividu = Individu.mutationClassique(individuOriginal, r);
-            }
-            
+    public void prochaineEvolution() throws InterruptedException{
+        int NB_THREAD = 8;
+        List<Thread> listeThread = new ArrayList<>();
+        for(int i=0; i<NB_THREAD; i++){
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Random r = new Random();
+                    Individu nouveauIndividu;
+                    if(r.nextFloat() < PROBA_MUTATION){ // Mutation
+                        // MUTATION SPECIFIQUE : VIDE MODULE COMPLET
+                        if(r.nextFloat() < PROBA_MUTATION_VIDE_MODULE){
+                            Individu individuOriginal = getIndividu(r.nextInt(getTaillePopulation()));
+                            nouveauIndividu = Individu.mutationVideModule(individuOriginal, r);
+                        }
+                        // MUTATION CLASSIQUE
+                        else{
+                            Individu individuOriginal = getIndividu(r.nextInt(getTaillePopulation()));
+                            nouveauIndividu = Individu.mutationClassique(individuOriginal, r);
+                        }
+                    }
+                    else{ // Croisement
+                        Individu individu1 = getIndividu(r.nextInt(getTaillePopulation()));
+                        Individu individu2 = getIndividu(r.nextInt(getTaillePopulation()));
+                        nouveauIndividu = Individu.croisement(individu1, individu2, r);
+                    }
+                  
+                    if(nouveauIndividu.getCouts().getCoutTotal() < getPireCout().getCoutTotal()){
+                        synchronized(getListeIndividus()) {
+                            ajouterIndividu(nouveauIndividu);
+                        }
+                    }
+                }
+            });
+            listeThread.add(t);
+            t.start();
         }
-        else{ // Croisement
-            Individu individu1 = this.getIndividu(r.nextInt(this.getTaillePopulation()));
-            Individu individu2 = this.getIndividu(r.nextInt(this.getTaillePopulation()));
-            nouveauIndividu = Individu.croisement(individu1, individu2, r);
+
+        for(Thread t : listeThread){
+            t.join();
         }
 
-        // Si le nouvel individu est meilleur que le plus mauvais de la population, on supprime le plus mauvais et on rajoute le nouvel individus
-        if(nouveauIndividu.getCouts().getCoutTotal() < this.getPireCout().getCoutTotal()){
-            this.supprimerPlusMauvaisIndividu();
-            this.ajouterIndividu(nouveauIndividu);
-            trierPopulation();
-        }
+        trierPopulation();
+        supprimerIndivusSupp();
 
-
-
-        this.setNbIteration(this.getNbIteration()+1);
-
+        this.setNbIteration(this.getNbIteration()+NB_THREAD);
     }
 
     
@@ -131,15 +148,18 @@ public class Population {
         return str;
     }
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
         List<List<String>> listeAnnuaire = Etudiant.genererAnnuaireDuTableau();
-        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,2,20);
+        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,15,50);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         VoeuxTousLesEtudiants listeVoeux = VoeuxTousLesEtudiants.genererVoeuxTousLesEtudiants(listeEtudiants, listeGroupes);
         Population pop = new Population(100, listeEtudiants, listeGroupes, listeVoeux);
         System.out.println(pop);
-        for(int i=0;i<100000;i++){
+        for(int i=0;i<12500;i++){
             pop.prochaineEvolution();
+            if(i%100 == 0){
+                System.out.println(pop);
+            }
         }
         System.out.println(pop);
         System.out.println(pop.getIndividu(0).voirNombresEtudiantsParModule());

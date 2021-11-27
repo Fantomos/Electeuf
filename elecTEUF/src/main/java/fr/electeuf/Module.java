@@ -26,15 +26,18 @@ public class Module {
     private int NB_PLACE_OPTI_DEFAUT = 20;
     private int NB_PLACE_MAX_DEFAUT = 24;
 
-    
-    public Module (String mIntitule, List<Classe> mClassesAcceptees){
+    public Module (String mIntitule, int mNbPlaceMin, int mNbPlaceOpti, int mNbPLaceMax, List<Classe> mClassesAcceptees){
         this.intitule = mIntitule;
         this.classesAcceptees = mClassesAcceptees;
         this.classesPrioritaires = new ArrayList<>();
         this.classesReticentes = new ArrayList<>();
-        this.nbPlaceMin = NB_PLACE_MIN_DEFAUT;
-        this.nbPlaceOpti = NB_PLACE_OPTI_DEFAUT;
-        this.nbPlaceMax = NB_PLACE_MAX_DEFAUT;
+        this.nbPlaceMin = mNbPlaceMin;
+        this.nbPlaceOpti = mNbPlaceOpti;
+        this.nbPlaceMax = mNbPLaceMax;
+    }
+
+    public Module (String mIntitule, List<Classe> mClassesAcceptees){
+        this(mIntitule, 16, 20, 24, mClassesAcceptees);
     }
    
     public Module(){
