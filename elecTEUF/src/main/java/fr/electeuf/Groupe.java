@@ -81,7 +81,7 @@ public class Groupe {
             listeGroupes.add(new Groupe(String.valueOf(i+1)));
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("elecTEUF/src/main/java/fr/electeuf/bdd/tableau_modules.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("Electeuf/elecTEUF/src/main/java/fr/electeuf/bdd/tableau_modules.csv"))) {
             String ligne = br.readLine();
             while ((ligne = br.readLine()) != null) {
                 String[] values = ligne.split(";");
@@ -97,9 +97,10 @@ public class Groupe {
                     }
                 }
 
-                Module module = new Module(values[posNom],Integer.parseInt(values[posNbMin]),Integer.parseInt(values[posNbOpti]),Integer.parseInt(values[posNbMax]), listeClasse);
-                for(String g : values[posCreneau].split(",")){
-                    listeGroupes.get(Integer.parseInt(g)-1).ajouterModule(module);
+                String[] creneau = values[posCreneau].split(",");
+                for(String g : creneau){
+                        Module module = new Module(values[posNom],Integer.parseInt(g),Integer.parseInt(values[posNbMin]),Integer.parseInt(values[posNbOpti]),Integer.parseInt(values[posNbMax]), listeClasse);
+                        listeGroupes.get(Integer.parseInt(g)-1).ajouterModule(module);
                 }
             }
         }

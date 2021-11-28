@@ -22,22 +22,24 @@ public class Module {
     private int nbPlaceMin;
     private int nbPlaceOpti;
     private int nbPlaceMax;
+    private int creneau;
     private int NB_PLACE_MIN_DEFAUT = 16;
     private int NB_PLACE_OPTI_DEFAUT = 20;
     private int NB_PLACE_MAX_DEFAUT = 24;
 
-    public Module (String mIntitule, int mNbPlaceMin, int mNbPlaceOpti, int mNbPLaceMax, List<Classe> mClassesAcceptees){
+    public Module (String mIntitule, int mCreneau, int mNbPlaceMin, int mNbPlaceOpti, int mNbPLaceMax, List<Classe> mClassesAcceptees){
         this.intitule = mIntitule;
         this.classesAcceptees = mClassesAcceptees;
         this.classesPrioritaires = new ArrayList<>();
         this.classesReticentes = new ArrayList<>();
+        this.creneau = mCreneau;
         this.nbPlaceMin = mNbPlaceMin;
         this.nbPlaceOpti = mNbPlaceOpti;
         this.nbPlaceMax = mNbPLaceMax;
     }
 
     public Module (String mIntitule, List<Classe> mClassesAcceptees){
-        this(mIntitule, 16, 20, 24, mClassesAcceptees);
+        this(mIntitule,1, 16, 20, 24, mClassesAcceptees);
     }
    
     public Module(){
@@ -89,7 +91,7 @@ public class Module {
     
     @Override
     public String toString() {
-        return "\nIntitule = " + intitule + " | Place (Min/Opti/Max)= " + nbPlaceMin + "/" + nbPlaceOpti + "/" + nbPlaceMax + " | Classes (Acceptees/Prioritaires/Reticentes) = " + classesAcceptees + "/" + classesPrioritaires + "/" + classesReticentes;
+        return "\nIntitule = " + intitule + " (" + creneau + ") | Place (Min/Opti/Max)= " + nbPlaceMin + "/" + nbPlaceOpti + "/" + nbPlaceMax + " | Classes (Acceptees/Prioritaires/Reticentes) = " + classesAcceptees + "/" + classesPrioritaires + "/" + classesReticentes;
     }
   
     @Override
@@ -107,6 +109,9 @@ public class Module {
         if(!Objects.equals(this.intitule, other.intitule)){
             return false;
         }
+        if(!Objects.equals(this.creneau, other.creneau)){
+            return false;
+        }
      
         return Objects.equals(this.classesAcceptees, other.classesAcceptees);
     }
@@ -116,6 +121,7 @@ public class Module {
     public int hashCode() {
         int hash = 5;
         hash = 37 * hash + Objects.hashCode(this.intitule);
+        hash = 37 * hash + Objects.hashCode(this.creneau);
         hash = 37 * hash + Objects.hashCode(this.classesAcceptees);
         return hash;
     }

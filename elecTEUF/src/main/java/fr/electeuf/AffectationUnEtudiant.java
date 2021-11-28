@@ -40,7 +40,14 @@ public class AffectationUnEtudiant {
         AffectationUnEtudiant affectationUnEtudiant = new AffectationUnEtudiant();
         Random r = new Random();
         for(Groupe groupe : listeGroupes){
-            List<Module> listeModule = groupe.getModules();
+            List<Module> listeModule = new ArrayList<>(groupe.getModules());
+            for(Module m1 : affectationUnEtudiant.getListeModulesAffecte()){
+                for(Module m2 : groupe.getModules()){
+                    if(m1.getIntitule().equals(m2.getIntitule())){
+                        listeModule.remove(m2);
+                    }
+                }
+            }
             int indiceAlea = r.nextInt(listeModule.size());
             Module module = listeModule.get(indiceAlea);
             affectationUnEtudiant.ajouterAffectationModule(groupe, module);
@@ -64,7 +71,14 @@ public class AffectationUnEtudiant {
         AffectationUnEtudiant affectationModifie = new AffectationUnEtudiant(affectationOriginal);
         List<Groupe> listeGroupes = affectationModifie.getListeGroupes();
         Groupe groupe = listeGroupes.get(r.nextInt(listeGroupes.size()));
-        List<Module> listeModule = groupe.getModules();
+        List<Module> listeModule = new ArrayList<>(groupe.getModules());
+        for(Module m1 : affectationModifie.getListeModulesAffecte()){
+            for(Module m2 : groupe.getModules()){
+                if(m1.getIntitule().equals(m2.getIntitule())){
+                    listeModule.remove(m2);
+                }
+            }
+        }
         affectationModifie.modifierAffectationModule(groupe, listeModule.get(r.nextInt(listeModule.size())));
         return affectationModifie;
     }

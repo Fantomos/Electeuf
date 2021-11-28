@@ -45,6 +45,7 @@ public class Evaluation{
 
     public static double evaluerClasseUnEtudiant(Etudiant etudiant, AffectationUnEtudiant affectation){
         double cout = 0;
+        List<String> listeIntitule = new ArrayList<>();
         for(Module module : affectation.getAffectationPourChaqueGroupe().values()){
             if(module.getClassesPrioritaires().contains(etudiant.getClasse()) || etudiant.getModulesPrioritaires().contains(module)){
                 cout += COUT_MODULE_PRIORITAIRE;
@@ -58,7 +59,14 @@ public class Evaluation{
             else{
                 cout += COUT_PROHIBITIF;
             }
+
+            if(listeIntitule.contains(module.getIntitule())){
+                cout += COUT_PROHIBITIF;
+            }
+            listeIntitule.add(module.getIntitule());
         }
+
+        
         return cout;
     }
 

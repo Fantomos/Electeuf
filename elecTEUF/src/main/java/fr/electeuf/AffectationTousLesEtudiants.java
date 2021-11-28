@@ -2,6 +2,7 @@ package fr.electeuf;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.KeyStore.Entry;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -54,8 +55,32 @@ public class AffectationTousLesEtudiants {
 
     public static AffectationTousLesEtudiants supprimerAffectationModule(AffectationTousLesEtudiants affectationOriginal, Random r){
         AffectationTousLesEtudiants affectationModifie = new AffectationTousLesEtudiants(affectationOriginal);
-        List<Module> listeModulesAffecte = affectationOriginal.getListeModuleAffecte();
-        Module moduleAlea = listeModulesAffecte.get(r.nextInt(listeModulesAffecte.size()));
+        Map<Module,Integer> nbEtudiantsParModule = affectationOriginal.getNbEtudiantParModule2();
+        List<Module> listeModulesPotentiel = new ArrayList<>();
+        Module moduleAlea = null;
+        for (Map.Entry<Module, Integer> entry : nbEtudiantsParModule.entrySet()) {
+        int nbPlaceOpti = entry.getKey().getNbPlaceOpti();
+            if(entry.getValue() > 0){
+                if(entry.getValue() <= nbPlaceOpti){
+                    float chance = (1-(0.9f/nbPlaceOpti-1)*(entry.getValue()-1));
+                    if(r.nextFloat() < chance){
+                            listeModulesPotentiel.add(entry.getKey());
+                    }
+                }
+                else{
+                    float chance = (0.1f+(0.9f/(nbPlaceOpti-1))*(entry.getValue()-1));
+                    if(r.nextFloat() < chance){
+                            listeModulesPotentiel.add(entry.getKey());
+                    }
+                }
+                moduleAlea = entry.getKey();
+            }  
+        }
+        
+        if(!listeModulesPotentiel.isEmpty()){
+            moduleAlea = listeModulesPotentiel.get(r.nextInt(listeModulesPotentiel.size()));
+        }
+        
         for (Map.Entry<Etudiant, AffectationUnEtudiant> entry : affectationOriginal.getListeAffectations().entrySet()) {
             affectationModifie.modifierAffectation(entry.getKey(), AffectationUnEtudiant.supprimeAffectationModule(entry.getValue(), moduleAlea, r));
         }
@@ -179,6 +204,8 @@ public class AffectationTousLesEtudiants {
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         AffectationTousLesEtudiants test = genererAffectationTousLesEtudiants(listeEtudiants, listeGroupes);
         System.out.println(test);
-        System.out.println(test.getNbEtudiantParModule());
+        System.out.println((1-(0.9f/25)*50));
+
+        
     }
 }

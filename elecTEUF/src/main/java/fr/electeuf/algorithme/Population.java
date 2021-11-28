@@ -37,9 +37,7 @@ public class Population {
     }
 
     public void supprimerIndivusSupp(){
-        for(int i=0; i<getTaillePopulation() - taillePopulation;i++){
-            this.getListeIndividus().remove(this.getTaillePopulation()-1);
-        }
+        getListeIndividus().subList(taillePopulation, getTaillePopulation()).clear();
     }
 
 
