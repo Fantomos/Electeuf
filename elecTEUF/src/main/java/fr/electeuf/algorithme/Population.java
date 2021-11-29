@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
+import fr.electeuf.AffectationUnEtudiant;
 import fr.electeuf.Etudiant;
 import fr.electeuf.Groupe;
+import fr.electeuf.Module;
 import fr.electeuf.VoeuxTousLesEtudiants;
 
 public class Population {
@@ -42,7 +45,7 @@ public class Population {
 
 
     public void prochaineEvolution() throws InterruptedException{
-        int NB_THREAD = 8;
+        int NB_THREAD = Runtime.getRuntime().availableProcessors();
         List<Thread> listeThread = new ArrayList<>();
         for(int i=0; i<NB_THREAD; i++){
             Thread t = new Thread(new Runnable() {
@@ -134,11 +137,43 @@ public class Population {
         return this.getListeIndividus().get(0).getCouts();
     }
 
+    
+    public void voirTauxSatisfaction(){
+        int nbHorsVoeux = 0;
+        int nbVoeux1 = 0;
+        int nbVoeux2 = 0;
+        int nbVoeux3 = 0;
+        for(Map.Entry<Etudiant, AffectationUnEtudiant> entry : getIndividu(0).getAffectationTousLesEtudiants().getListeAffectations().entrySet()){
+            for(Map.Entry<Groupe, Module> entry2 : entry.getValue().getAffectationPourChaqueGroupe().entrySet()){
+                int positionVoeux = getListeVoeux().getVoeux().get(entry.getKey()).getVoeuxPourChaqueGroupe().get(entry2.getKey()).indexOf(entry2.getValue());
+                if(positionVoeux == -1){
+                    nbHorsVoeux++;
+                }
+                else if(positionVoeux == 0){
+                    nbVoeux1++;
+                }
+                else if(positionVoeux == 1){
+                    nbVoeux2++;
+                }
+                else if(positionVoeux == 2){
+                    nbVoeux3++;
+                }
+            }
+        }
+        String str = "\n NOMBRE VOEUX 1 : " + nbVoeux1;
+        str += "\n NOMBRE VOEUX 2 : " + nbVoeux2;
+        str += "\n NOMBRE VOEUX 3 : " + nbVoeux3;
+        str += "\n NOMBRE HORS-VOEUX : " + nbHorsVoeux;
+        System.out.println(str);
+
+    }
+
 
     @Override
     public String toString(){
         String str = "\n------------------------- POPULATION ----------------------------\n";
         str += "    NOMBRE D'INDIVIDUS : " + this.getTaillePopulation();
+        str += "    NOMBRE D'ITERATIONS : " + this.getNbIteration();
         str += "\n\n    MEILLEUR COUT (MIN) \n" + this.getMeilleurCout();
         str += "\n\n    COUT MEDIAN \n" + this.getCoutMedian();
         str += "\n\n    PIRE COUT (MAX) \n" + this.getPireCout();
@@ -146,21 +181,31 @@ public class Population {
         return str;
     }
 
+
     public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
         List<List<String>> listeAnnuaire = Etudiant.genererAnnuaireDuTableau();
         List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,15,50);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         VoeuxTousLesEtudiants listeVoeux = VoeuxTousLesEtudiants.genererVoeuxTousLesEtudiants(listeEtudiants, listeGroupes);
-        Population pop = new Population(100, listeEtudiants, listeGroupes, listeVoeux);
-        System.out.println(pop);
-        for(int i=0;i<12500;i++){
+
+        Population pop = new Population(1000, listeEtudiants, listeGroupes, listeVoeux);
+        
+        long t1 = System.currentTimeMillis();
+        while(pop.getNbIteration() < 10000000 & pop.getMeilleurCout().getCoutTotal() > 1000){
             pop.prochaineEvolution();
-            if(i%100 == 0){
+            if(pop.getNbIteration()%2000 == 0){
                 System.out.println(pop);
             }
+            // if(pop.getNbIteration()%100000 == 0){
+            //     pop.voirTauxSatisfaction();
+            //     System.out.println(System.currentTimeMillis() - t1);
+            // }
+            
         }
+        System.out.println(System.currentTimeMillis() - t1);
         System.out.println(pop);
         System.out.println(pop.getIndividu(0).voirNombresEtudiantsParModule());
+        pop.voirTauxSatisfaction();
       
 
     }

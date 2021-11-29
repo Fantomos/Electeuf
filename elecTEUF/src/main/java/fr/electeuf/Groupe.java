@@ -81,7 +81,7 @@ public class Groupe {
             listeGroupes.add(new Groupe(String.valueOf(i+1)));
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("Electeuf/elecTEUF/src/main/java/fr/electeuf/bdd/tableau_modules.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("elecTEUF/src/main/java/fr/electeuf/bdd/tableau_modules.csv"))) {
             String ligne = br.readLine();
             while ((ligne = br.readLine()) != null) {
                 String[] values = ligne.split(";");

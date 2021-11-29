@@ -125,4 +125,5 @@ public class Module {
         hash = 37 * hash + Objects.hashCode(this.classesAcceptees);
         return hash;
     }
+
 }
