@@ -184,28 +184,28 @@ public class Population {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
         List<List<String>> listeAnnuaire = Etudiant.genererAnnuaireDuTableau();
-        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,15,50);
+        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,30,200);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         VoeuxTousLesEtudiants listeVoeux = VoeuxTousLesEtudiants.genererVoeuxTousLesEtudiants(listeEtudiants, listeGroupes);
 
         Population pop = new Population(1000, listeEtudiants, listeGroupes, listeVoeux);
         
         long t1 = System.currentTimeMillis();
-        while(pop.getNbIteration() < 10000000 & pop.getMeilleurCout().getCoutTotal() > 1000){
+        while(true){
             pop.prochaineEvolution();
-            if(pop.getNbIteration()%2000 == 0){
+            if(pop.getNbIteration()%10000 == 0){
                 System.out.println(pop);
             }
-            // if(pop.getNbIteration()%100000 == 0){
-            //     pop.voirTauxSatisfaction();
-            //     System.out.println(System.currentTimeMillis() - t1);
-            // }
+            if(pop.getNbIteration()%100000 == 0){
+                pop.voirTauxSatisfaction();
+                System.out.println(System.currentTimeMillis() - t1);
+            }
             
         }
-        System.out.println(System.currentTimeMillis() - t1);
-        System.out.println(pop);
-        System.out.println(pop.getIndividu(0).voirNombresEtudiantsParModule());
-        pop.voirTauxSatisfaction();
+        // System.out.println(System.currentTimeMillis() - t1);
+        // System.out.println(pop);
+        // System.out.println(pop.getIndividu(0).voirNombresEtudiantsParModule());
+        // pop.voirTauxSatisfaction();
       
 
     }

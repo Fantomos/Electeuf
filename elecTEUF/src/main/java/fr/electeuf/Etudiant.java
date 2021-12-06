@@ -142,7 +142,7 @@ public class Etudiant {
         List<String> listePrenom = new ArrayList<>();
         List<String> listeNom = new ArrayList<>();
         List<String> listeDate = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("elecTEUF/src/main/java/fr/electeuf/bdd/tableau_annuaire.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("tableau_annuaire.csv"))) {
             String ligne = br.readLine();
 
             while ((ligne = br.readLine()) != null) {
