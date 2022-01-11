@@ -105,24 +105,6 @@ public class Etudiant {
     }
     
 
-    public static Etudiant genererEtudiant(){
-        Random r = new Random();
-        List<String> noms = ExemplePersonnesAlea.nomsAlea();
-        List<String> prenoms = ExemplePersonnesAlea.nomsAlea();
-        String nom = noms.get(r.nextInt(noms.size()));
-        String prenom = prenoms.get(r.nextInt(prenoms.size()));
-        return new Etudiant(nom, prenom, Classe.genererClasse());
-    }
-    
-    public static Etudiant genererEtudiantParAnnee(int annee){
-        Random r = new Random();
-        List<String> noms = ExemplePersonnesAlea.nomsAlea();
-        List<String> prenoms = ExemplePersonnesAlea.nomsAlea();
-        String nom = noms.get(r.nextInt(noms.size()));
-        String prenom = prenoms.get(r.nextInt(prenoms.size()));
-        return new Etudiant(nom, prenom, Classe.genererClasseParAnnee(annee));
-    }
-
     public static Etudiant genererEtudiantParAnneeSpe(List<List<String>> listeAnnuaire, int annee, String specialite){
         Random r = new Random();
         List<String> listePrenom = listeAnnuaire.get(0);
