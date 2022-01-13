@@ -1,6 +1,8 @@
 package fr.electeuf.algorithme;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +23,7 @@ public class Population {
     private VoeuxTousLesEtudiants listeVoeux;
     private int nbIteration;
     private int taillePopulation;
-    public static final float PROBA_MUTATION = 0.1f;
+    public static final float PROBA_MUTATION = 0.25f;
     public static final float PROBA_MUTATION_VIDE_MODULE = 0.1f;
    
     public Population(int mTaillePopulation, List<Etudiant> mListeEtudiants, List<Groupe> mListeGroupes, VoeuxTousLesEtudiants mListeVoeux) {
@@ -51,7 +53,7 @@ public class Population {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Random r = new Random();
+                    Random r = new Random(System.currentTimeMillis() *Thread.currentThread().getId());
                     Individu nouveauIndividu;
                     if(r.nextFloat() < PROBA_MUTATION){ // Mutation
                         // MUTATION SPECIFIQUE : VIDE MODULE COMPLET
@@ -184,20 +186,26 @@ public class Population {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
         List<List<String>> listeAnnuaire = Etudiant.genererAnnuaireDuTableau();
-        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,30,200);
+        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,5,50);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         VoeuxTousLesEtudiants listeVoeux = VoeuxTousLesEtudiants.genererVoeuxTousLesEtudiants(listeEtudiants, listeGroupes);
 
         Population pop = new Population(1000, listeEtudiants, listeGroupes, listeVoeux);
         
         long t1 = System.currentTimeMillis();
+        pop.voirTauxSatisfaction();
+        
         while(true){
             pop.prochaineEvolution();
             if(pop.getNbIteration()%10000 == 0){
+                BufferedWriter writer = new BufferedWriter(new FileWriter("results.log", true));
+                writer.append(String.valueOf(pop.getNbIteration()) + "," +  String.valueOf(pop.getMeilleurCout().getCoutTotal()) + "\n");
+                writer.close();
                 System.out.println(pop);
             }
-            if(pop.getNbIteration()%100000 == 0){
+            if(pop.getNbIteration()%50000 == 0){
                 pop.voirTauxSatisfaction();
+                System.out.println(pop.getIndividu(0).getAffectationTousLesEtudiants().voirNombresEtudiantsParModule());
                 System.out.println(System.currentTimeMillis() - t1);
             }
             

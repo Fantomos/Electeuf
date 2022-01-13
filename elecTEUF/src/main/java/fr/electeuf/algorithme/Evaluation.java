@@ -23,7 +23,7 @@ public class Evaluation{
     public static final double COUT_PROHIBITIF = 10000;
     public static final double COUT_MODULE_PRIORITAIRE = -50;
     public static final double COUT_MODULE_RETICENT = 50;
-    public static final double COUT_COEF_ETUDIANT = 1.5;
+    public static final double COUT_COEF_ETUDIANT = 1;
     public static final double COUT_COEF_REMPLISSAGE = 1;
 
     public Evaluation (double mCoutClasse, double mCoutVoeux, double mCoutRemplissage){

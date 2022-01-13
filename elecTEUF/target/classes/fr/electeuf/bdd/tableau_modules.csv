@@ -1,35 +1,17 @@
-Nom;Creneau;spe;année;nb min;nb opt;nb max
-Big Data;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
+Nom;Creneau;spe;annï¿½e;nb min;nb opt;nb max
+Big Data;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
 Intercultural management;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
 Corporate social responsibility - RSE;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Lean Construction : les fondamentaux;1,2;G,GC,GCE,GE;3,4;15;20;25
-Analyse exergétique et efficacité des systèmes et dans les bâtiments;1;G,GCE,GE,GM;2,3,4;15;20;25
-Initiation au BIM;1;G,GC,GCE,GE;2,3,4;15;20;22
-Projet informatique utilisant des bases de données;1,2;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25
-Programmation C/C++;1;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25
-Initiation à l’algorithmique;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Entrepreneuriat 1 – De l’idée au marché;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Pratique des plastiques en Projet;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Engagement Associatif;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
-LV2 Espagnol Intermédiaire et avancé;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;12;20;25
-LV3 Espagnol Débutant;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;12;20;25
-Participation aux concours;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;10;20;25
-Initiation aux réseaux de chauffage, sanitaire et ventilation;1;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25
-Développement d’applications mobiles pour l’ingénierie;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Inventive Design & Innovation;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Savoir Négocier pour réussir;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Stratégies de Négociation pour l’Ingénieur;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Programmation Bas Niveau;1;GE,MIQ;3,4;15;20;25
-Thermographie infrarouge;1,2;GC,GCE,GM,MIQ,PL;3,4;15;20;25
-Work shop Design 1;1;GM,MIQ,PL;3,4;15;20;25
-Arduino Maker;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Initiation à la Plasturgie;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Pratique sportive en compétition (FFsportU);1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Tutorat;1,2;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;5;20;30
-Communication évènementielle;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Energie Electrique Renouvelable Photovoltaïque ;1,2;G,GC,GCE,GM,MIQ,PL;2,3,4;15;20;25
-Introduction au design;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Interculturalité;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Introduction à la robotique 2;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
-Maquette Numérique 2;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Villes et métropoles du monde;1,2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Lean Construction : les fondamentaux;2;G,GC,GCE,GE;3,4;15;20;25
+Analyse exergï¿½tique et efficacitï¿½ des systï¿½mes et dans les bï¿½timents;2;G,GCE,GE,GM;2,3,4;15;20;25
+Initiation au BIM;2;G,GC,GCE,GE;2,3,4;15;20;22
+Projet informatique utilisant des bases de donnï¿½es;1;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25
+Programmation C/C++;2;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25
+Initiation ï¿½ lï¿½algorithmique;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Entrepreneuriat 1 ï¿½ De lï¿½idï¿½e au marchï¿½;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Pratique des plastiques en Projet;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Engagement Associatif;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
+LV2 Espagnol Intermï¿½diaire et avancï¿½;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;12;20;25
+LV3 Espagnol Dï¿½butant;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;12;20;25
+Participation aux concours;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;10;20;25
+Initiation aux rï¿½seaux de chauffage, sanitaire et ventilation;2;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25

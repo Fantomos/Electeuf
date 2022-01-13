@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
+import javax.sound.sampled.SourceDataLine;
+
 
 /**
  *
@@ -81,7 +83,7 @@ public class Groupe {
             listeGroupes.add(new Groupe(String.valueOf(i+1)));
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("tableau_modules2.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("elecTEUF/src/main/java/fr/electeuf/bdd/tableau_modules.csv"))) {
             String ligne = br.readLine();
             while ((ligne = br.readLine()) != null) {
                 String[] values = ligne.split(";");
@@ -100,6 +102,7 @@ public class Groupe {
                 String[] creneau = values[posCreneau].split(",");
                 for(String g : creneau){
                         Module module = new Module(values[posNom],Integer.parseInt(g),Integer.parseInt(values[posNbMin]),Integer.parseInt(values[posNbOpti]),Integer.parseInt(values[posNbMax]), listeClasse);
+                        System.out.println(module);
                         listeGroupes.get(Integer.parseInt(g)-1).ajouterModule(module);
                 }
             }
