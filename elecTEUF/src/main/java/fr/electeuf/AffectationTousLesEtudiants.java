@@ -22,7 +22,7 @@ public class AffectationTousLesEtudiants {
         this.listeAffectations = new HashMap<>();
     }
     public AffectationTousLesEtudiants(AffectationTousLesEtudiants original){
-        this.listeAffectations = original.getListeAffectations();
+        this.listeAffectations = new HashMap<>(original.getListeAffectations());
     }
     
     public void ajouterAffectation(Etudiant etudiant, AffectationUnEtudiant affectationUnEtudiant){

@@ -20,7 +20,7 @@ public class AffectationUnEtudiant {
     }
 
     public AffectationUnEtudiant(AffectationUnEtudiant original){
-        this.affectationPourChaqueGroupe = original.getAffectationPourChaqueGroupe();
+        this.affectationPourChaqueGroupe = new HashMap<>(original.getAffectationPourChaqueGroupe());
     }
     
     

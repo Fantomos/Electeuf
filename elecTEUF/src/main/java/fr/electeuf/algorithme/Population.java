@@ -186,7 +186,7 @@ public class Population {
 
     public static void main(String[] args) throws FileNotFoundException, IOException, InterruptedException {
         List<List<String>> listeAnnuaire = Etudiant.genererAnnuaireDuTableau();
-        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,5,50);
+        List<Etudiant> listeEtudiants = Etudiant.genererListeEtudiants(listeAnnuaire,15,40);
         List<Groupe> listeGroupes = Groupe.genererGroupeDuTableau(2);
         VoeuxTousLesEtudiants listeVoeux = VoeuxTousLesEtudiants.genererVoeuxTousLesEtudiants(listeEtudiants, listeGroupes);
 
@@ -199,7 +199,7 @@ public class Population {
             pop.prochaineEvolution();
             if(pop.getNbIteration()%10000 == 0){
                 BufferedWriter writer = new BufferedWriter(new FileWriter("results.log", true));
-                writer.append(String.valueOf(pop.getNbIteration()) + "," +  String.valueOf(pop.getMeilleurCout().getCoutTotal()) + "\n");
+                writer.append(String.valueOf(pop.getNbIteration())+ "," +  String.valueOf(pop.getMeilleurCout().getCoutEtudiant()) + "," +  String.valueOf(pop.getMeilleurCout().getCoutRemplissage()) + "\n");
                 writer.close();
                 System.out.println(pop);
             }

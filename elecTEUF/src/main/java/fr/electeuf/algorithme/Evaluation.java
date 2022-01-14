@@ -83,13 +83,13 @@ public class Evaluation{
         for(Map.Entry<Groupe, Module> entry : affectation.getAffectationPourChaqueGroupe().entrySet()){
             int positionVoeux = voeux.getVoeuxPourChaqueGroupe().get(entry.getKey()).indexOf(entry.getValue());
             if(positionVoeux == -1){
-                cout += (VoeuxUnEtudiant.NOMBRE_VOEUX+1)^2;
+                cout += Math.pow((VoeuxUnEtudiant.NOMBRE_VOEUX+1),2);
             }
             else if(positionVoeux == 0){
                 cout += 0;
             }
             else{
-                cout += positionVoeux^2;
+                cout += Math.pow(positionVoeux,2);
             }
         }
         return cout;
@@ -121,7 +121,7 @@ public class Evaluation{
         }
         else
         {
-            cout+= (Math.abs(nbEtudiants - module.getNbPlaceOpti()))^2;
+            cout+= Math.pow((Math.abs(nbEtudiants - module.getNbPlaceOpti())),2);
         }
         return cout;
     }
@@ -194,4 +194,8 @@ public class Evaluation{
         return str;
     }
 
+
+    public static void main(String[] args) {
+        System.out.println(Math.pow(2,4));
+    }
 }

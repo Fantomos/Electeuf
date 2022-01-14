@@ -1,12 +1,12 @@
 Nom;Creneau;spe;ann�e;nb min;nb opt;nb max
 Big Data;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
-Intercultural management;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Intercultural management;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
 Corporate social responsibility - RSE;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
-Lean Construction : les fondamentaux;2;G,GC,GCE,GE;3,4;15;20;25
-Analyse exerg�tique et efficacit� des syst�mes et dans les b�timents;2;G,GCE,GE,GM;2,3,4;15;20;25
-Initiation au BIM;2;G,GC,GCE,GE;2,3,4;15;20;22
-Projet informatique utilisant des bases de donn�es;1;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25
-Programmation C/C++;2;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25
+Lean Construction : les fondamentaux;2;G,GC,GCE,GE,GM,MIQ,PL;3,4;15;20;25
+Analyse exerg�tique et efficacit� des syst�mes et dans les b�timents;2;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25
+Initiation au BIM;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
+Projet informatique utilisant des bases de donn�es;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Programmation C/C++;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
 Initiation � l�algorithmique;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
 Entrepreneuriat 1 � De l�id�e au march�;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
 Pratique des plastiques en Projet;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
@@ -14,4 +14,24 @@ Engagement Associatif;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
 LV2 Espagnol Interm�diaire et avanc�;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;12;20;25
 LV3 Espagnol D�butant;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;12;20;25
 Participation aux concours;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;10;20;25
-Initiation aux r�seaux de chauffage, sanitaire et ventilation;2;G,GC,GCE,GE,GM,MIQ,PL;2,3,4;15;20;25
+Initiation aux r�seaux de chauffage, sanitaire et ventilation;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Inventive Design and Innovation;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Bases de donn�es avanc�es et applications mobiles;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+LV2 Allemand 2LF;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+LV2 Allemand d�butant;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+LV2 Allemand Interm�diaire & avanc�;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Negotiate to succeed;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Negotiation Strategies for Engineers;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Mod�lisation 4D sous Maya;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;5;20;30
+Lean Construction : les fondamentaux;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Entrepreneuriat 1 - De l�ide?e au marche?;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Tutorat;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Design Workshop 1;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Programmation C/C++;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
+Big Data;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Pratique des plastiques en projet;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Intercultural management (Management Interculturel);2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;22
+Engagement associatif;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Participation aux concours;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Bachelor Deutschinsa;1;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
+Formation dipl�mante PRAP;2;G,GC,GCE,GE,GM,MIQ,PL;1,2,3,4;15;20;25
